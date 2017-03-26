@@ -23,21 +23,35 @@ defmodule Cards do
   end
 
   @doc """
-    Check if given Card is in give Deck.
+    Check if given `card` is in give `deck`.
+
+  ## Examples
+
+      iex> Cards.contains?(["1", "2"], "2")
+      true
+
+      iex> Cards.contains?(["1", "2"], "3")
+      false
+
+      iex> Cards.contains?([], "2")
+      false
+
+      iex> Cards.contains?(["1"], nil)
+      false
   """
   def contains?(deck, card) do
     Enum.member?(deck, card)
   end
 
   @doc """
-    Deals the given Deck by given hand_size.
+    Deals the given `deck` by given `hand_size`.
   """
   def deal(deck, hand_size) do
     Enum.split(deck, hand_size)
   end
 
   @doc """
-    Save given Deck using given filename to filesystem.
+    Save given `deck` using given `filename` to filesystem.
   """
   def save(deck, filename) do
     binary = :erlang.term_to_binary(deck)
@@ -45,12 +59,22 @@ defmodule Cards do
   end
 
   @doc """
-    Load Deck from file using given filename
+    Load Deck from file using given `filename`.
   """
   def load(filename) do
     case File.read(filename) do
       { :ok, binary } -> :erlang.binary_to_term binary
       { :error, reason } -> "Error: Cannot load Deck. Reason: #{reason}"
     end
+  end
+
+  @doc """
+    Create a Deck using given `hand_size`.
+    Basically, create, shuffle, deal Deck.
+  """
+  def create_hand(hand_size) do
+    Cards.create_deck
+    |> Cards.shuffle
+    |> Cards.deal(hand_size)
   end
 end
