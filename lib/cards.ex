@@ -4,36 +4,15 @@ defmodule Cards do
   """
 
   @doc """
-    Hello world.
-
-    ## Examples
-
-    iex> Cards.hello
-    :world
-
-  """
-  def hello do
-    :world
-  end
-
-  @doc """
-    Say Hi!!
-
-    ## Examples
-
-    iex> Cards.say_hi
-    "hi there!"
-
-  """
-  def say_hi do
-    "hi there!"
-  end
-
-  @doc """
     Creates a Deck.
   """
   def create_deck do
-    ["Ace", "Two", "Three"]
+    values = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Vale", "Queen", "King"]
+    suits = ["Spades", "Clubs", "Hearts", "Diamond"]
+
+    for value <- values, suit <- suits do
+      "#{value} of #{suit}"
+    end
   end
 
   @doc """
@@ -41,5 +20,12 @@ defmodule Cards do
   """
   def shuffle(deck) do
     Enum.shuffle(deck)
+  end
+
+  @doc """
+    Check if given Card is in give Deck.
+  """
+  def contains?(deck, card) do
+    Enum.member?(deck, card)
   end
 end
