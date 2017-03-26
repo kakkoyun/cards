@@ -48,11 +48,9 @@ defmodule Cards do
     Load Deck from file using given filename
   """
   def load(filename) do
-    { status, binary } = File.read(filename)
-
-    case status do
-      :ok -> :erlang.binary_to_term binary
-      :error -> "Error: Cannot load Deck."
+    case File.read(filename) do
+      { :ok, binary } -> :erlang.binary_to_term binary
+      { :error, reason } -> "Error: Cannot load Deck. Reason: #{reason}"
     end
   end
 end
